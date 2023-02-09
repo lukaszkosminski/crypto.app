@@ -1,0 +1,9 @@
+com\cryptoapp\currency\Currency.class
+com\cryptoapp\Application.class
+com\cryptoapp\SwaggerConfig.class
+com\cryptoapp\wallet\WalletRepo.class
+com\cryptoapp\currency\CurrencyService.class
+com\cryptoapp\wallet\WalletController.class
+com\cryptoapp\wallet\Wallet.class
+com\cryptoapp\currency\CurrencyRepo.class
+com\cryptoapp\currency\CurrencyController.class
