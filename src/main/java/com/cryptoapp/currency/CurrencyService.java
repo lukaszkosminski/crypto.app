@@ -1,7 +1,9 @@
 package com.cryptoapp.currency;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CurrencyService {
@@ -44,13 +46,13 @@ public class CurrencyService {
 
     }
     public Currency addQuantity(Long id, Integer add){
-        Currency currency = currencyRepo.findById(id).orElseThrow();
+        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         currency.setQuantity((currency.getQuantity()+add));
         currencyRepo.save(currency);
         return currency;
     }
     public Currency substractQuantity(Long id, Integer substract){
-        Currency currency = currencyRepo.findById(id).orElseThrow();
+        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         currency.setQuantity(currency.getQuantity()-substract);
         if(currency.getQuantity()<0){
             currency.setQuantity(0);
@@ -59,13 +61,13 @@ public class CurrencyService {
         return currency;
     }
     public Currency setZeroQuantity(Long id){
-        Currency currency = currencyRepo.findById(id).orElseThrow();
+        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         currency.setQuantity(0);
         currencyRepo.save(currency);
         return currency;
     }
     public Currency setSpecificValueQuantity(Long id, Integer specificValueQuantity){
-        Currency currency = currencyRepo.findById(id).orElseThrow();
+        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         currency.setQuantity(specificValueQuantity);
         currencyRepo.save(currency);
         return currency;

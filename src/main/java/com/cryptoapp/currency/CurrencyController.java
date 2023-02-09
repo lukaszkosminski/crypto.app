@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class CurrencyController {
     @GetMapping("/currency/{idCurrency}")
     @ApiOperation(value = "getCurrencyById")
     public Currency getCurrencyById(@PathVariable Long idCurrency) {
-        return currencyRepo.findById(idCurrency).orElseThrow();
+        return currencyRepo.findById(idCurrency).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("currency/{idCurrency}")
