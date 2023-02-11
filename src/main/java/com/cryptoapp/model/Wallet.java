@@ -1,19 +1,19 @@
-package com.cryptoapp.wallet;
+package com.cryptoapp.model;
 
-import com.cryptoapp.currency.Currency;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
 public class Wallet {
-
     @Id
     @GeneratedValue
     private Long idWallet;

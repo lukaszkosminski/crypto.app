@@ -1,4 +1,4 @@
-package com.cryptoapp;
+package com.cryptoapp.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

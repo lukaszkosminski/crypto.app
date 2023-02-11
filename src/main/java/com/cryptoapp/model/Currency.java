@@ -1,14 +1,15 @@
-package com.cryptoapp.currency;
+package com.cryptoapp.model;
 
-import com.cryptoapp.wallet.Wallet;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
-
 public class Currency {
     @Id
     @GeneratedValue
