@@ -2,10 +2,10 @@ package com.cryptoapp.service;
 
 import com.cryptoapp.dto.CurrencyDTO;
 import com.cryptoapp.dto.WalletDTO;
+import com.cryptoapp.dto.mapper.CurrencyMapper;
 import com.cryptoapp.dto.mapper.WalletMapper;
 import com.cryptoapp.model.Currency;
 import com.cryptoapp.model.Wallet;
-import com.cryptoapp.repository.CurrencyRepo;
 import com.cryptoapp.repository.WalletRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,34 +19,27 @@ import java.util.List;
 public class WalletService {
 
     private final WalletRepo walletRepo;
-    private final CurrencyRepo currencyRepo;
     private final CurrencyService currencyService;
 
     @Autowired
-    public WalletService(WalletRepo walletRepo, CurrencyRepo currencyRepo, CurrencyService currencyService) {
+    public WalletService(WalletRepo walletRepo, CurrencyService currencyService) {
         this.walletRepo = walletRepo;
-        this.currencyRepo = currencyRepo;
         this.currencyService = currencyService;
     }
 
+
     public CurrencyDTO addCurrencyToWallet(Long currencyId, Long walletId) {
-        Currency currency = currencyRepo.findById(currencyId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Wallet wallet = walletRepo.findById(walletId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        CurrencyDTO currencyDTO = currencyService.getCurrencyById(currencyId);
+        Currency currency = CurrencyMapper.mapToCurrency(currencyDTO);
         currency.setWallet(wallet);
-        currencyRepo.save(currency);
-        return currencyService.mapToDTO(currency);
-    }
-
-    public Wallet mapToWallet(WalletDTO walletDTO) {
-        return WalletMapper.mapToWallet(walletDTO);
-    }
-
-    public WalletDTO mapToDTO(Wallet wallet) {
-        return WalletMapper.mapToDTO(wallet);
+        currency.setId(currencyId);
+        currencyService.save(currency);
+        return CurrencyMapper.mapToDTO(currency);
     }
 
     public WalletDTO mapAndSave(WalletDTO walletDTO) {
-        walletRepo.save(mapToWallet(walletDTO));
+        walletRepo.save(WalletMapper.mapToWallet(walletDTO));
         return walletDTO;
     }
 
@@ -54,7 +47,7 @@ public class WalletService {
         List<Wallet> walletList = walletRepo.findAll();
         ArrayList<WalletDTO> walletDTOList = new ArrayList<>();
         for (Wallet wallet : walletList) {
-            WalletDTO walletDTO = mapToDTO(wallet);
+            WalletDTO walletDTO = WalletMapper.mapToDTO(wallet);
             walletDTOList.add(walletDTO);
         }
         return walletDTOList;
@@ -72,9 +65,18 @@ public class WalletService {
 
         ArrayList<CurrencyDTO> currencyDTOList = new ArrayList<>();
         for (Currency currency : currencyList) {
-            CurrencyDTO currencyDTO = currencyService.mapToDTO(currency);
+            CurrencyDTO currencyDTO = CurrencyMapper.mapToDTO(currency);
             currencyDTOList.add(currencyDTO);
         }
         return currencyDTOList;
     }
+
+    public WalletDTO getWallet(Long walletId) {
+        Wallet wallet = walletRepo.findById(walletId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return WalletMapper.mapToDTO(wallet);
+    }
+    public void save(Wallet wallet){
+        walletRepo.save(wallet);
+    }
+
 }

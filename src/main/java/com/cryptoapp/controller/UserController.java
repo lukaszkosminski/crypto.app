@@ -3,7 +3,6 @@ package com.cryptoapp.controller;
 import com.cryptoapp.dto.UserDTO;
 import com.cryptoapp.dto.WalletDTO;
 import com.cryptoapp.service.UserService;
-import com.cryptoapp.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +13,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final WalletService walletService;
 
     @Autowired
-    public UserController(UserService userService, WalletService walletService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.walletService = walletService;
     }
+
 
     @PostMapping("user/create")
     public UserDTO create(@RequestBody UserDTO userDTO) {

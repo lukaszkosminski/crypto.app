@@ -2,7 +2,6 @@ package com.cryptoapp.controller;
 
 import com.cryptoapp.dto.CurrencyDTO;
 import com.cryptoapp.dto.WalletDTO;
-import com.cryptoapp.service.CurrencyService;
 import com.cryptoapp.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,13 +12,12 @@ import java.util.List;
 @RestController
 public class WalletController {
     private final WalletService walletService;
-    private final CurrencyService currencyService;
 
     @Autowired
-    public WalletController(WalletService walletService, CurrencyService currencyService) {
+    public WalletController(WalletService walletService) {
         this.walletService = walletService;
-        this.currencyService = currencyService;
     }
+
 
     @GetMapping("/wallet")
     public List<WalletDTO> getWalletList() {
