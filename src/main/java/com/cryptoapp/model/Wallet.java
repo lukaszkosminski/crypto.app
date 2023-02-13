@@ -1,10 +1,7 @@
 package com.cryptoapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +19,7 @@ public class Wallet {
     @JsonIgnore
     @OneToMany(mappedBy = "wallet")
     private List<Currency> currency;
+    @ManyToOne
+    private User user;
 
 }

@@ -12,8 +12,8 @@ import java.util.List;
 
 @RestController
 public class WalletController {
-    private WalletService walletService;
-    private CurrencyService currencyService;
+    private final WalletService walletService;
+    private final CurrencyService currencyService;
 
     @Autowired
     public WalletController(WalletService walletService, CurrencyService currencyService) {
