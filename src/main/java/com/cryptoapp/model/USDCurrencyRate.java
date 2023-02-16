@@ -1,4 +1,4 @@
-package com.cryptoapp.model.crypto;
+package com.cryptoapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

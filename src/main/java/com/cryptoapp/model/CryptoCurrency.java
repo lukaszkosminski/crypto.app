@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Getter
@@ -21,5 +22,8 @@ public class CryptoCurrency {
     private Long id;
     @CreationTimestamp
     private Timestamp createdTime;
+    private String name;
+    private BigDecimal price;
+    private String symbol;
 
 }
