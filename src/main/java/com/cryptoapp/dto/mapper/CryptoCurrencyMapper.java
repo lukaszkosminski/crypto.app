@@ -5,7 +5,6 @@ import com.cryptoapp.model.CryptoCurrency;
 
 public class CryptoCurrencyMapper {
 
-
     public static CryptoCurrency mapToCurrency(CryptoCurrencyDTO cryptoCurrencyDTO) {
         CryptoCurrency cryptoCurrency = new CryptoCurrency();
         cryptoCurrency.setSymbol(cryptoCurrencyDTO.getSymbol());
@@ -19,4 +18,5 @@ public class CryptoCurrencyMapper {
         cryptoCurrencyDTO.setSymbol(cryptoCurrency.getSymbol());
         return cryptoCurrencyDTO;
     }
+
 }

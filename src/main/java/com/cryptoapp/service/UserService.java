@@ -19,6 +19,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepo userRepo;
+
     private final WalletService walletService;
 
     @Autowired
@@ -27,23 +28,21 @@ public class UserService {
         this.walletService = walletService;
     }
 
-
-    public UserDTO mapAndSave(UserDTO userDTO) {
+    public UserDTO save(UserDTO userDTO) {
         userRepo.save(UserMapper.mapToUser(userDTO));
         return userDTO;
     }
 
-    public UserDTO changeEmail(Long idUser, String email) {
+    public UserDTO changeEmail(Long idUser, UserDTO userDTO) {
         User user = userRepo.findById(idUser).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        user.setEmail(email);
+        user.setEmail(userDTO.getEmail());
         userRepo.save(user);
         return UserMapper.mapToDTO(user);
     }
 
-
-    public UserDTO changePassword(Long idUser, String password) {
+    public UserDTO changePassword(Long idUser, UserDTO userDTO) {
         User user = userRepo.findById(idUser).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        user.setPassword(password);
+        user.setPassword(userDTO.getPassword());
         userRepo.save(user);
         return UserMapper.mapToDTO(user);
     }
@@ -52,12 +51,10 @@ public class UserService {
         userRepo.deleteById(idUser);
     }
 
-    public WalletDTO addWalletToUser(Long userId, Long walletId) {
+    public WalletDTO addWalletToUser(Long userId, WalletDTO walletDTO) {
         User user = userRepo.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        WalletDTO walletDTO = walletService.getWallet(walletId);
         Wallet wallet = WalletMapper.mapToWallet(walletDTO);
         wallet.setUser(user);
-        wallet.setIdWallet(walletId);
         walletService.save(wallet);
         return WalletMapper.mapToDTO(wallet);
     }
@@ -70,7 +67,6 @@ public class UserService {
             userDTOList.add(userDTO);
         }
         return userDTOList;
-
     }
 
     public UserDTO getUser(Long userId) {
@@ -78,7 +74,7 @@ public class UserService {
         return UserMapper.mapToDTO(user);
     }
 
-    public List<WalletDTO> getWalletByUser(Long idUser) {
+    public List<WalletDTO> getWalletsByUser(Long idUser) {
         List<Wallet> walletList = userRepo.findById(idUser).map(User::getWallet).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         ArrayList<WalletDTO> walletDTOList = new ArrayList<>();
@@ -88,4 +84,5 @@ public class UserService {
         }
         return walletDTOList;
     }
+
 }

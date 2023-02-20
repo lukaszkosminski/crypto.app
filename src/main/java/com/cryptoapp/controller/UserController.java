@@ -19,31 +19,30 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    @PostMapping("user/create")
+    @PostMapping("users/create")
     public UserDTO create(@RequestBody UserDTO userDTO) {
-        return userService.mapAndSave(userDTO);
+        return userService.save(userDTO);
     }
 
-    @PutMapping("user/{idUser}/change-email/{newEmail}")
-    public UserDTO changeEmail(@PathVariable Long idUser, @PathVariable String newEmail) {
-        return userService.changeEmail(idUser, newEmail);
+    @PutMapping("user/{idUser}/change-email")
+    public UserDTO changeEmail(@PathVariable Long idUser, @RequestBody UserDTO userDTO) {
+        return userService.changeEmail(idUser, userDTO);
     }
 
-    @PutMapping("user/{idUser}/change-password/{newPassword}")
-    public UserDTO changePassword(@PathVariable Long idUser, @PathVariable String newPassword) {
-        return userService.changePassword(idUser, newPassword);
+    @PutMapping("user/{idUser}/change-password")
+    public UserDTO changePassword(@PathVariable Long idUser, @RequestBody UserDTO userDTO) {
+        return userService.changePassword(idUser, userDTO);
     }
 
-    @DeleteMapping("user/{idUser}/delete")
+    @DeleteMapping("user/{idUser}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long idUser) {
         userService.deleteUser(idUser);
     }
 
-    @PutMapping("user/{idUser}/wallet/{idWallet}")
-    public WalletDTO addWalletToUser(@PathVariable Long idUser, @PathVariable Long idWallet) {
-        return userService.addWalletToUser(idUser, idWallet);
+    @PutMapping("user/{idUser}/wallet")
+    public WalletDTO addWalletToUser(@PathVariable Long idUser, @RequestBody WalletDTO walletDTO) {
+        return userService.addWalletToUser(idUser, walletDTO);
     }
 
     @GetMapping("user")
@@ -58,8 +57,7 @@ public class UserController {
 
     @GetMapping("user/{idUser}/wallets")
     public List<WalletDTO> getWalletsByUser(@PathVariable Long idUser) {
-        return userService.getWalletByUser(idUser);
+        return userService.getWalletsByUser(idUser);
     }
-
 
 }

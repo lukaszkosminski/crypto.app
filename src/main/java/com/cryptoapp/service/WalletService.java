@@ -19,6 +19,7 @@ import java.util.List;
 public class WalletService {
 
     private final WalletRepo walletRepo;
+
     private final CurrencyService currencyService;
 
     @Autowired
@@ -27,18 +28,15 @@ public class WalletService {
         this.currencyService = currencyService;
     }
 
-
-    public CurrencyDTO addCurrencyToWallet(Long currencyId, Long walletId) {
+    public CurrencyDTO addCurrencyToWallet(CurrencyDTO currencyDTO, Long walletId) {
         Wallet wallet = walletRepo.findById(walletId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        CurrencyDTO currencyDTO = currencyService.getCurrencyById(currencyId);
         Currency currency = CurrencyMapper.mapToCurrency(currencyDTO);
         currency.setWallet(wallet);
-        currency.setId(currencyId);
         currencyService.save(currency);
         return CurrencyMapper.mapToDTO(currency);
     }
 
-    public WalletDTO mapAndSave(WalletDTO walletDTO) {
+    public WalletDTO save(WalletDTO walletDTO) {
         walletRepo.save(WalletMapper.mapToWallet(walletDTO));
         return walletDTO;
     }
@@ -51,7 +49,6 @@ public class WalletService {
             walletDTOList.add(walletDTO);
         }
         return walletDTOList;
-
     }
 
     public void deleteWallet(Long idWallet) {
@@ -75,6 +72,7 @@ public class WalletService {
         Wallet wallet = walletRepo.findById(walletId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return WalletMapper.mapToDTO(wallet);
     }
+
     public void save(Wallet wallet){
         walletRepo.save(wallet);
     }

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 public class WalletController {
+
     private final WalletService walletService;
 
     @Autowired
@@ -18,15 +19,9 @@ public class WalletController {
         this.walletService = walletService;
     }
 
-
-    @GetMapping("/wallet")
-    public List<WalletDTO> getWalletList() {
-        return walletService.getWalletList();
-    }
-
     @PostMapping("/wallet")
     public WalletDTO createWallet(@RequestBody WalletDTO walletDTO) {
-        return walletService.mapAndSave(walletDTO);
+        return walletService.save(walletDTO);
     }
 
     @GetMapping("/wallet/{idWallet}/currencies")
@@ -34,9 +29,9 @@ public class WalletController {
         return walletService.getCurrenciesByWallet(idWallet);
     }
 
-    @PutMapping("wallet/{walletId}/currency/{currencyId}")
-    public CurrencyDTO addCurrencyToWallet(@PathVariable Long currencyId, @PathVariable Long walletId) {
-        return walletService.addCurrencyToWallet(currencyId, walletId);
+    @PutMapping("wallet/{walletId}/currency")
+    public CurrencyDTO addCurrencyToWallet(@RequestBody CurrencyDTO currencyDTO, @PathVariable Long walletId) {
+        return walletService.addCurrencyToWallet(currencyDTO, walletId);
     }
 
     @DeleteMapping("/wallet/{idWallet}")

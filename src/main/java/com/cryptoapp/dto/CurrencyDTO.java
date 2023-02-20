@@ -8,9 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CurrencyDTO {
+
     private String symbol;
+
     private String name;
+
     private Integer quantity;
+
     private Wallet wallet;
 
 }

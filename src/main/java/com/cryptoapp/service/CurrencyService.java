@@ -23,10 +23,9 @@ public class CurrencyService {
         this.currencyRepo = currencyRepo;
     }
 
-
-    public CurrencyDTO addQuantity(Long id, Integer add) {
+    public CurrencyDTO depositFunds(Long id, Integer depositFunds) {
         Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        currency.setQuantity((currency.getQuantity() + add));
+        currency.setQuantity((currency.getQuantity() + depositFunds));
         currencyRepo.save(currency);
         return CurrencyMapper.mapToDTO(currency);
     }
@@ -37,7 +36,6 @@ public class CurrencyService {
         if (currency.getQuantity() < 0) {
             throw new Exception("Quantity is less than 0");
         }
-
         return CurrencyMapper.mapToDTO(currency);
     }
 
@@ -56,7 +54,7 @@ public class CurrencyService {
     }
 
 
-    public CurrencyDTO mapAndSave(CurrencyDTO currencyDTO) {
+    public CurrencyDTO save(CurrencyDTO currencyDTO) {
         currencyRepo.save(CurrencyMapper.mapToCurrency(currencyDTO));
         return currencyDTO;
     }
@@ -83,6 +81,5 @@ public class CurrencyService {
     public void save(Currency currency) {
         currencyRepo.save(currency);
     }
-
 
 }

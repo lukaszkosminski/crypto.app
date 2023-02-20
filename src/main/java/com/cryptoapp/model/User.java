@@ -18,10 +18,15 @@ public class User {
     @Id
     @GeneratedValue
     private Long idUser;
+
     private String login;
+
     private String email;
+
     private String password;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Wallet> wallet;
+
 }

@@ -4,6 +4,7 @@ import com.cryptoapp.dto.WalletDTO;
 import com.cryptoapp.model.Wallet;
 
 public class WalletMapper {
+
     public static Wallet mapToWallet(WalletDTO walletDTO) {
         Wallet wallet = new Wallet();
         wallet.setName(walletDTO.getName());
@@ -15,4 +16,5 @@ public class WalletMapper {
         walletDTO.setName(wallet.getName());
         return walletDTO;
     }
+
 }

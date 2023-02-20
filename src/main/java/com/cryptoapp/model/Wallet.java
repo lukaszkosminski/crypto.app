@@ -11,14 +11,17 @@ import java.util.List;
 @Setter
 @Entity
 public class Wallet {
+
     @Id
     @GeneratedValue
     private Long idWallet;
 
     private String name;
+
     @JsonIgnore
     @OneToMany(mappedBy = "wallet")
     private List<Currency> currency;
+
     @ManyToOne
     private User user;
 

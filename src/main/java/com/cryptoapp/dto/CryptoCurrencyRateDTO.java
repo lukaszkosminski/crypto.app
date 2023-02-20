@@ -9,11 +9,15 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class CryptoCurrencyRateDTO {
+
     private BigDecimal price;
+
     private CryptoCurrency cryptoCurrency;
+
 
     public CryptoCurrencyRateDTO(BigDecimal price, CryptoCurrency cryptoCurrency) {
         this.price = price;
         this.cryptoCurrency = cryptoCurrency;
     }
+
 }

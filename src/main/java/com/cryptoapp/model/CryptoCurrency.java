@@ -14,9 +14,12 @@ public class CryptoCurrency {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
+
     private String symbol;
 
     @OneToMany(mappedBy = "cryptoCurrency", cascade = CascadeType.ALL)
     private List<CryptoCurrencyRate> rates;
+
 }

@@ -4,6 +4,7 @@ import com.cryptoapp.dto.CurrencyDTO;
 import com.cryptoapp.model.Currency;
 
 public class CurrencyMapper {
+
     public static Currency mapToCurrency(CurrencyDTO currencyDTO) {
         Currency currency = new Currency();
         currency.setName(currencyDTO.getName());

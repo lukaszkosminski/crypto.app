@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 public class CurrencyController {
+
     private final CurrencyService currencyService;
 
     @Autowired
@@ -19,12 +20,12 @@ public class CurrencyController {
 
     @PostMapping("/currency/create")
     public CurrencyDTO createCurrency(@RequestBody CurrencyDTO currencyDTO) {
-        return currencyService.mapAndSave(currencyDTO);
+        return currencyService.save(currencyDTO);
     }
 
-    @PutMapping("/currency/{idCurrency}/add")
+    @PutMapping("/currency/{idCurrency}/deposit")
     public CurrencyDTO addQuantity(@PathVariable Long idCurrency, @RequestParam Integer quantity) {
-        return currencyService.addQuantity(idCurrency, quantity);
+        return currencyService.depositFunds(idCurrency, quantity);
     }
 
     @PutMapping("/currency/{idCurrency}/subtract")

@@ -11,12 +11,17 @@ import lombok.Setter;
 @Getter
 @Entity
 public class Currency {
+
     @Id
     @GeneratedValue
     private Long id;
+
     private String symbol;
+
     private String name;
+
     private Integer quantity;
+
     @ManyToOne
     private Wallet wallet;
 

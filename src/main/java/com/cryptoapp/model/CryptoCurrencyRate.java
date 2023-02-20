@@ -17,8 +17,10 @@ public class CryptoCurrencyRate {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @CreationTimestamp
     private Timestamp createdTime;
+
     @ManyToOne
     @JoinColumn(name = "cryptocurrency_id")
     private CryptoCurrency cryptoCurrency;

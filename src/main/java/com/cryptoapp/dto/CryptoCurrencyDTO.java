@@ -1,6 +1,5 @@
 package com.cryptoapp.dto;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import lombok.Setter;
 public class CryptoCurrencyDTO {
 
     private String name;
-    private String symbol;
 
+    private String symbol;
 
 }

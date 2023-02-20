@@ -5,6 +5,7 @@ import com.cryptoapp.model.User;
 
 
 public class UserMapper {
+
     public static User mapToUser(UserDTO userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin());
@@ -20,4 +21,5 @@ public class UserMapper {
         userDTO.setPassword(user.getPassword());
         return userDTO;
     }
+
 }
