@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -18,6 +19,8 @@ public class CryptoCurrency {
     private String name;
 
     private String symbol;
+
+    private BigDecimal quantity;
 
     @OneToMany(mappedBy = "cryptoCurrency", cascade = CascadeType.ALL)
     private List<CryptoCurrencyRate> rates;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -24,12 +25,12 @@ public class CurrencyController {
     }
 
     @PutMapping("/currency/{idCurrency}/deposit")
-    public CurrencyDTO addQuantity(@PathVariable Long idCurrency, @RequestParam Integer quantity) {
+    public CurrencyDTO addQuantity(@PathVariable Long idCurrency, @RequestParam BigDecimal quantity) {
         return currencyService.depositFunds(idCurrency, quantity);
     }
 
     @PutMapping("/currency/{idCurrency}/subtract")
-    public CurrencyDTO subtractQuantity(@PathVariable Long idCurrency, @RequestParam Integer quantity) throws Exception {
+    public CurrencyDTO subtractQuantity(@PathVariable Long idCurrency, @RequestParam BigDecimal quantity) throws Exception {
         return currencyService.subtractQuantity(idCurrency, quantity);
     }
 
@@ -39,7 +40,7 @@ public class CurrencyController {
     }
 
     @PutMapping("/currency/{idCurrency}/set-specific-value")
-    public CurrencyDTO setSpecificValue(@PathVariable Long idCurrency, @RequestParam Integer quantity) {
+    public CurrencyDTO setSpecificValue(@PathVariable Long idCurrency, @RequestParam BigDecimal quantity) {
         return currencyService.setSpecificValueQuantity(idCurrency, quantity);
     }
 

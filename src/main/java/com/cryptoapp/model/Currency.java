@@ -7,6 +7,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 @Entity
@@ -20,7 +22,7 @@ public class Currency {
 
     private String name;
 
-    private Integer quantity;
+    private BigDecimal quantity;
 
     @ManyToOne
     private Wallet wallet;

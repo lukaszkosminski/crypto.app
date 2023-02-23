@@ -9,6 +9,7 @@ public class CryptoCurrencyMapper {
         CryptoCurrency cryptoCurrency = new CryptoCurrency();
         cryptoCurrency.setSymbol(cryptoCurrencyDTO.getSymbol());
         cryptoCurrency.setName(cryptoCurrencyDTO.getName());
+        cryptoCurrency.setQuantity(cryptoCurrencyDTO.getQuantity());
         return cryptoCurrency;
     }
 
@@ -16,6 +17,7 @@ public class CryptoCurrencyMapper {
         CryptoCurrencyDTO cryptoCurrencyDTO = new CryptoCurrencyDTO();
         cryptoCurrencyDTO.setName(cryptoCurrency.getName());
         cryptoCurrencyDTO.setSymbol(cryptoCurrency.getSymbol());
+        cryptoCurrencyDTO.setQuantity(cryptoCurrency.getQuantity());
         return cryptoCurrencyDTO;
     }
 
