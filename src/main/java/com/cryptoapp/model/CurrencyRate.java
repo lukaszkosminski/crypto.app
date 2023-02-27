@@ -4,26 +4,25 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.util.List;
-
+import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-public class CryptoCurrency {
+public class CurrencyRate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    @CreationTimestamp
+    private Timestamp createdTime;
 
-    private String symbol;
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
     @PositiveOrZero
-    private BigDecimal quantity;
-
-    @OneToMany(mappedBy = "cryptoCurrency", cascade = CascadeType.ALL)
-    private List<CryptoCurrencyRate> rates;
-
+    private BigDecimal price;
 }

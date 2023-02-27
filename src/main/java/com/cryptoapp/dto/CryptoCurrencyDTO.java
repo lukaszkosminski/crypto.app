@@ -1,5 +1,6 @@
 package com.cryptoapp.dto;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ public class CryptoCurrencyDTO {
     private String name;
 
     private String symbol;
-
+    @PositiveOrZero
     private BigDecimal quantity;
 
 }

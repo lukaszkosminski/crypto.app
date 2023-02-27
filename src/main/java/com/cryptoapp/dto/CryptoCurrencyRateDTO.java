@@ -1,6 +1,7 @@
 package com.cryptoapp.dto;
 
 import com.cryptoapp.model.CryptoCurrency;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
