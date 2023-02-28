@@ -32,4 +32,7 @@ public class CryptoCurrencyService {
         CryptoCurrencyDTO cryptoCurrencyDTO = CryptoCurrencyMapper.mapToDTO(cryptoCurrencyRepository.getById(idCryptocurrency));
         return cryptoCurrencyDTO;
     }
+    public CryptoCurrency saveEntity(CryptoCurrency cryptoCurrency){
+       return cryptoCurrencyRepository.save(cryptoCurrency);
+    }
 }

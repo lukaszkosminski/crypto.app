@@ -60,4 +60,9 @@ public class UserController {
         return userService.getWalletsByUser(idUser);
     }
 
+    @PutMapping("user/{idUser}/wallet/{idWallet}")
+    public WalletDTO addWalletToUser(@PathVariable Long idUser, @PathVariable Long idWallet) {
+        return userService.addWalletToUser(idUser, idWallet);
+    }
+
 }

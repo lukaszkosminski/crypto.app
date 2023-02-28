@@ -29,4 +29,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Wallet> wallet;
 
+    private String preferredCurrency;
+
 }

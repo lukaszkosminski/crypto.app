@@ -26,4 +26,7 @@ public class CryptoCurrency {
     @OneToMany(mappedBy = "cryptoCurrency", cascade = CascadeType.ALL)
     private List<CryptoCurrencyRate> rates;
 
+    @ManyToOne
+    private Wallet wallet;
+
 }

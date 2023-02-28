@@ -1,5 +1,6 @@
 package com.cryptoapp.controller;
 
+import com.cryptoapp.dto.CryptoCurrencyDTO;
 import com.cryptoapp.dto.CurrencyDTO;
 import com.cryptoapp.dto.WalletDTO;
 import com.cryptoapp.service.WalletService;
@@ -38,6 +39,10 @@ public class WalletController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteWallet(@PathVariable Long idWallet) {
         walletService.deleteWallet(idWallet);
+    }
+    @PutMapping("wallet/{walletId}/crypto-currency")
+    public CryptoCurrencyDTO addCryptoCurrencyToWallet(@RequestBody CryptoCurrencyDTO cryptoCurrencyDTO,@PathVariable Long walletId){
+        return walletService.addCryptoCurrencyToWallet(cryptoCurrencyDTO,walletId);
     }
 
 }

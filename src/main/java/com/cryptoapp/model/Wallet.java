@@ -25,4 +25,8 @@ public class Wallet {
     @ManyToOne
     private User user;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "wallet")
+    private List<CryptoCurrency> cryptoCurrency;
+
 }

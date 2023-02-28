@@ -7,6 +7,7 @@ import com.cryptoapp.dto.mapper.WalletMapper;
 import com.cryptoapp.model.User;
 import com.cryptoapp.model.Wallet;
 import com.cryptoapp.repository.UserRepo;
+import com.cryptoapp.repository.WalletRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,11 +23,13 @@ public class UserService {
     private final UserRepo userRepo;
 
     private final WalletService walletService;
+    private final WalletRepo walletRepo;
 
     @Autowired
-    public UserService(UserRepo userRepo, WalletService walletService) {
+    public UserService(UserRepo userRepo, WalletService walletService, WalletRepo walletRepo) {
         this.userRepo = userRepo;
         this.walletService = walletService;
+        this.walletRepo = walletRepo;
     }
 
     public UserDTO save(UserDTO userDTO) {
@@ -83,6 +87,14 @@ public class UserService {
             walletDTOList.add(walletDTO);
         }
         return walletDTOList;
+    }
+
+    public WalletDTO addWalletToUser(Long userId, Long idWallet) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Wallet wallet = walletRepo.findById(idWallet).orElseThrow();
+        wallet.setUser(user);
+        walletService.save(wallet);
+        return WalletMapper.mapToDTO(wallet);
     }
 
 }
