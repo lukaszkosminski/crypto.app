@@ -15,4 +15,8 @@ public class Portfolio {
     @GeneratedValue
     private Long id;
     private BigDecimal totalAssetBalance;
+
+    private BigDecimal cryptoCurrencyAssetBalance;
+
+    private BigDecimal currencyAssetBalance;
 }

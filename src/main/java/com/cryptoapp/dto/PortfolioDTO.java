@@ -10,4 +10,8 @@ import java.math.BigDecimal;
 public class PortfolioDTO {
 
     private BigDecimal totalAssetBalance;
+
+    private BigDecimal cryptoCurrencyAssetBalance;
+
+    private BigDecimal currencyAssetBalance;
 }

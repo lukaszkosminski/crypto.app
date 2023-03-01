@@ -19,12 +19,6 @@ public class Transaction {
 
     private TransactionType transactionType;
 
-//    @OneToOne
-//    private CryptoCurrency cryptoCurrency;
-//
-//    @OneToOne
-//    private Currency currency;
-
     private BigDecimal amount;
 
     private BigDecimal price;

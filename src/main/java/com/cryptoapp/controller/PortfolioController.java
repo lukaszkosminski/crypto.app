@@ -18,7 +18,7 @@ public class PortfolioController {
 
     @GetMapping("portfolio/{idUser}")
     public PortfolioDTO getPortfolioValue(Long idUser) throws JsonProcessingException {
-        return portfolioService.calculateTotalValue(Long.valueOf(1));
+        return portfolioService.calculateTotalAssetBalance(Long.valueOf(1));
     }
 
 

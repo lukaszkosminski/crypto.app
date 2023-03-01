@@ -1,14 +1,9 @@
 package com.cryptoapp.service;
 
-import com.cryptoapp.dto.CryptoCurrencyRateDTO;
 import com.cryptoapp.dto.CurrencyRateDTO;
-import com.cryptoapp.dto.mapper.CryptoCurrencyRateMapper;
 import com.cryptoapp.dto.mapper.CurrencyRateMapper;
-import com.cryptoapp.model.CryptoCurrency;
 import com.cryptoapp.model.Currency;
-import com.cryptoapp.model.USDCurrencyRate;
-import com.cryptoapp.repository.CryptoCurrencyRateRepository;
-import com.cryptoapp.repository.CryptoCurrencyRepository;
+import com.cryptoapp.model.CurrencyAssetBalance;
 import com.cryptoapp.repository.CurrencyRateRepo;
 import com.cryptoapp.repository.CurrencyRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,9 +39,8 @@ public class CurrencyRateService {
         RestTemplate restTemplate = new RestTemplate();
         String jsonResponse = restTemplate.getForObject(String.format(apiUrl, symbol), String.class);
         ObjectMapper objectMapper = new ObjectMapper();
-        USDCurrencyRate usdCurrencyRate = objectMapper.readValue(jsonResponse, USDCurrencyRate.class);
-        return usdCurrencyRate.getUSD();
-    }
+        CurrencyAssetBalance currencyAssetBalance = objectMapper.readValue(jsonResponse, CurrencyAssetBalance.class);
+        return currencyAssetBalance.getCurrencyBalance().get(symbol);    }
 
     public List<CurrencyRateDTO> createCurrencyRateDTOList() throws JsonProcessingException {
         List<Currency> allCurrency = currencyRepo.findAll();
