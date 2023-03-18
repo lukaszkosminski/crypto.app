@@ -7,19 +7,15 @@ public class CurrencyMapper {
 
     public static Currency mapToCurrency(CurrencyDTO currencyDTO) {
         Currency currency = new Currency();
-        currency.setName(currencyDTO.getName());
-        currency.setQuantity(currencyDTO.getQuantity());
         currency.setSymbol(currencyDTO.getSymbol());
-        currency.setWallet(currencyDTO.getWallet());
+        currency.setIsCrypto(currencyDTO.getIsCrypto());
         return currency;
     }
 
     public static CurrencyDTO mapToDTO(Currency currency) {
         CurrencyDTO currencyDTO = new CurrencyDTO();
-        currencyDTO.setName(currency.getName());
-        currencyDTO.setQuantity(currency.getQuantity());
         currencyDTO.setSymbol(currency.getSymbol());
-        currencyDTO.setWallet(currency.getWallet());
+        currencyDTO.setIsCrypto(currency.getIsCrypto());
         return currencyDTO;
     }
 

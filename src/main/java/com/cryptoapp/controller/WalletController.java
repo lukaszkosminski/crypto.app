@@ -1,14 +1,14 @@
 package com.cryptoapp.controller;
 
-import com.cryptoapp.dto.CryptoCurrencyDTO;
-import com.cryptoapp.dto.CurrencyDTO;
-import com.cryptoapp.dto.WalletDTO;
+import com.cryptoapp.model.User;
 import com.cryptoapp.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WalletController {
@@ -20,29 +20,10 @@ public class WalletController {
         this.walletService = walletService;
     }
 
-    @PostMapping("/wallet")
-    public WalletDTO createWallet(@RequestBody WalletDTO walletDTO) {
-        return walletService.save(walletDTO);
-    }
-
-    @GetMapping("/wallet/{idWallet}/currencies")
-    public List<CurrencyDTO> getCurrenciesByWallet(@PathVariable Long idWallet) {
-        return walletService.getCurrenciesByWallet(idWallet);
-    }
-
-    @PutMapping("wallet/{walletId}/currency")
-    public CurrencyDTO addCurrencyToWallet(@RequestBody CurrencyDTO currencyDTO, @PathVariable Long walletId) {
-        return walletService.addCurrencyToWallet(currencyDTO, walletId);
-    }
-
-    @DeleteMapping("/wallet/{idWallet}")
+    @DeleteMapping("api/user/wallet/{idWallet}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteWallet(@PathVariable Long idWallet) {
-        walletService.deleteWallet(idWallet);
-    }
-    @PutMapping("wallet/{walletId}/crypto-currency")
-    public CryptoCurrencyDTO addCryptoCurrencyToWallet(@RequestBody CryptoCurrencyDTO cryptoCurrencyDTO,@PathVariable Long walletId){
-        return walletService.addCryptoCurrencyToWallet(cryptoCurrencyDTO,walletId);
+    public void deleteWallet(@PathVariable Long idWallet, @AuthenticationPrincipal User user) {
+        walletService.deleteWallet(idWallet,user);
     }
 
 }

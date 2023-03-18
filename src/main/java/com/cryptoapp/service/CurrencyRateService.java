@@ -3,10 +3,10 @@ package com.cryptoapp.service;
 import com.cryptoapp.dto.CurrencyRateDTO;
 import com.cryptoapp.dto.mapper.CurrencyRateMapper;
 import com.cryptoapp.model.Currency;
-import com.cryptoapp.model.CurrencyAssetBalance;
 import com.cryptoapp.repository.CurrencyRateRepo;
 import com.cryptoapp.repository.CurrencyRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +25,10 @@ public class CurrencyRateService {
 
     private final CurrencyRepo currencyRepo;
 
-    @Value("${api.url}}")
+    @Value("${api.url2}}")
     private String apiUrl;
+
+    private String sellSymbol = "PLN";
 
     @Autowired
     public CurrencyRateService(CurrencyRateRepo currencyRateRepo, CurrencyRepo currencyRepo) {
@@ -35,19 +37,21 @@ public class CurrencyRateService {
     }
 
 
-    public BigDecimal getPrice(String symbol) throws JsonProcessingException {
+    public BigDecimal getPrice(String symbolBuy, String symbolSell) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
-        String jsonResponse = restTemplate.getForObject(String.format(apiUrl, symbol), String.class);
+        String jsonResponse = restTemplate.getForObject(String.format(apiUrl, symbolBuy,symbolSell), String.class);
         ObjectMapper objectMapper = new ObjectMapper();
-        CurrencyAssetBalance currencyAssetBalance = objectMapper.readValue(jsonResponse, CurrencyAssetBalance.class);
-        return currencyAssetBalance.getCurrencyBalance().get(symbol);    }
-
-    public List<CurrencyRateDTO> createCurrencyRateDTOList() throws JsonProcessingException {
+        JsonNode rootNode = objectMapper.readTree(jsonResponse);
+        BigDecimal value = rootNode.get(symbolSell).decimalValue();
+        return value;
+//        return currencyAssetBalance.getCurrencyBalance().get(symbol);    }
+    }
+    public List<CurrencyRateDTO> createCurrencyRateDTOList(String sellSymbol) throws JsonProcessingException {
         List<Currency> allCurrency = currencyRepo.findAll();
         List<CurrencyRateDTO> currencyRateDTOList = new ArrayList<>();
 
         for (Currency currency : allCurrency) {
-            CurrencyRateDTO currencyRateDTO = new CurrencyRateDTO(currency, getPrice(currency.getSymbol()));
+            CurrencyRateDTO currencyRateDTO = new CurrencyRateDTO(currency, getPrice(currency.getSymbol(), sellSymbol),sellSymbol);
             currencyRateDTOList.add(currencyRateDTO);
         }
 
@@ -56,7 +60,7 @@ public class CurrencyRateService {
 
     @Scheduled(fixedDelay = 20000)
     public void saveListToDb() throws JsonProcessingException {
-        List<CurrencyRateDTO> currencyRateDTOList = createCurrencyRateDTOList();
+        List<CurrencyRateDTO> currencyRateDTOList = createCurrencyRateDTOList(sellSymbol);
         for (CurrencyRateDTO currencyRateDTO : currencyRateDTOList) {
             currencyRateRepo.save(CurrencyRateMapper.mapToCurrency(currencyRateDTO));
         }

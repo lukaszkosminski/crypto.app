@@ -2,8 +2,8 @@ package com.cryptoapp.model;
 
 public enum TransactionType {
 
-    buyCrypto,
-
-    sellCrypto
+    CURRENCY_CURRENCY,
+    DEPOSIT_FIAT_CURRENCY,
+    WITHDRAW_FIAT_CURRENCY
 
 }

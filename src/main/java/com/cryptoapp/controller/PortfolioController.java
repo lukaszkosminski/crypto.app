@@ -1,9 +1,11 @@
 package com.cryptoapp.controller;
 
 import com.cryptoapp.dto.PortfolioDTO;
+import com.cryptoapp.model.User;
 import com.cryptoapp.service.PortfolioService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,9 +18,9 @@ public class PortfolioController {
         this.portfolioService = portfolioService;
     }
 
-    @GetMapping("portfolio/{idUser}")
-    public PortfolioDTO getPortfolioValue(Long idUser) throws JsonProcessingException {
-        return portfolioService.calculateTotalAssetBalance(Long.valueOf(1));
+    @GetMapping("api/user/portfolio-total-balance")
+    public PortfolioDTO getPortfolioTotalValue(@AuthenticationPrincipal User user) throws JsonProcessingException {
+        return portfolioService.calculateTotalAssetBalance(user);
     }
 
 

@@ -1,11 +1,10 @@
 package com.cryptoapp.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 @Getter
@@ -23,6 +22,8 @@ public class CurrencyRate {
     @ManyToOne
     @JoinColumn(name = "currency_id")
     private Currency currency;
-    @PositiveOrZero
+
     private BigDecimal price;
+
+    private String symbolSell;
 }

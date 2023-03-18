@@ -1,11 +1,7 @@
 package com.cryptoapp.dto;
 
-import com.cryptoapp.model.Wallet;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 
 @Getter
@@ -13,11 +9,6 @@ import java.math.BigDecimal;
 public class CurrencyDTO {
 
     private String symbol;
-
-    private String name;
-    @PositiveOrZero
-    private BigDecimal quantity;
-
-    private Wallet wallet;
+    private Boolean isCrypto;
 
 }

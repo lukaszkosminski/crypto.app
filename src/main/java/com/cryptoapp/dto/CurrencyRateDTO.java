@@ -1,14 +1,10 @@
 package com.cryptoapp.dto;
 
 import com.cryptoapp.model.Currency;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 @Getter
 @Setter
 public class CurrencyRateDTO {
@@ -17,8 +13,11 @@ public class CurrencyRateDTO {
 
     private BigDecimal price;
 
-    public CurrencyRateDTO(Currency currency, BigDecimal price) {
+    private String sellSymbol;
+
+    public CurrencyRateDTO(Currency currency, BigDecimal price, String sellSymbol) {
         this.currency = currency;
         this.price = price;
+        this.sellSymbol = sellSymbol;
     }
 }

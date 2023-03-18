@@ -1,7 +1,6 @@
 package com.cryptoapp.dto;
 
 import com.cryptoapp.model.TransactionType;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,15 +13,29 @@ public class TransactionDTO {
 
     private TransactionType transactionType;
 
-    //    @OneToOne
-//    private CryptoCurrency cryptoCurrency;
-//
-//    @OneToOne
-//    private Currency currency;
-    @PositiveOrZero
-    private BigDecimal amount;
 
-    private BigDecimal price;
+//    private Integer amount;
+
+    private BigDecimal priceUsd;
+
+
+
+//    private Value value;
+
+//    private Wallet wallet;
+
+    // baseCurrency/quoteCurrency
+
+    private String baseCurrencySymbol;
+
+    private BigDecimal baseCurrencyAmount;
+
+    private String quoteCurrencySymbol;
+
+    private BigDecimal quoteCurrencyAmount;
+
+    public TransactionDTO() {
+    }
 
 
 }

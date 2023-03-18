@@ -1,14 +1,11 @@
 package com.cryptoapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Setter
 @Getter
@@ -21,11 +18,7 @@ public class Currency {
 
     private String symbol;
 
-    private String name;
-    @PositiveOrZero
-    private BigDecimal quantity;
+    private Boolean isCrypto;
 
-    @ManyToOne
-    private Wallet wallet;
 
 }
