@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Top 100 Cryptocurrencies</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Top 100 Cryptocurrencies</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Symbol</th>
+        <th>Price (USD)</th>
+        <th>Market Cap (USD)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="data : ${cryptoData}">
+        <td th:text="${data.getCoinInfo().getName()}"></td>
+        <td th:text="${data.getCoinInfo().getSymbol()}"></td>
+        <td th:text="${data.getDisplay().getUSD().getPrice()}"></td>
+        <td th:text="${data.getDisplay().getUSD().getMarketCap()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -23,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/user/**").hasRole("USER")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/public/**").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/img/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().defaultSuccessUrl("/api/user/wallets")
