@@ -6,19 +6,18 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
-@Setter
 @Getter
+@Setter
 @Entity
-public class Currency {
-
+public class Portfolio {
     @Id
     @GeneratedValue
     private Long id;
+    private BigDecimal totalAssetBalance;
 
-    private String symbol;
+    private BigDecimal cryptoCurrencyAssetBalance;
 
-    private Boolean isCrypto;
-
-
+    private BigDecimal currencyAssetBalance;
 }

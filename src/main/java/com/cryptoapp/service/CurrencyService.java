@@ -23,41 +23,16 @@ public class CurrencyService {
         this.currencyRepo = currencyRepo;
     }
 
-    public CurrencyDTO depositFunds(Long id, Integer depositFunds) {
-        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        currency.setQuantity((currency.getQuantity() + depositFunds));
-        currencyRepo.save(currency);
-        return CurrencyMapper.mapToDTO(currency);
-    }
-
-    public CurrencyDTO subtractQuantity(Long id, Integer subtract) throws Exception {
-        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        currency.setQuantity(currency.getQuantity() - subtract);
-        if (currency.getQuantity() < 0) {
-            throw new Exception("Quantity is less than 0");
-        }
-        return CurrencyMapper.mapToDTO(currency);
-    }
-
-    public CurrencyDTO setZeroQuantity(Long id) {
-        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        currency.setQuantity(0);
-        currencyRepo.save(currency);
-        return CurrencyMapper.mapToDTO(currency);
-    }
-
-    public CurrencyDTO setSpecificValueQuantity(Long id, Integer specificValueQuantity) {
-        Currency currency = currencyRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        currency.setQuantity(specificValueQuantity);
-        currencyRepo.save(currency);
-        return CurrencyMapper.mapToDTO(currency);
-    }
-
 
     public CurrencyDTO save(CurrencyDTO currencyDTO) {
+        Currency currency = CurrencyMapper.mapToCurrency(currencyDTO);
+        if(currencyRepo.existsBySymbol(currency.getSymbol())) {
+            throw new IllegalArgumentException("Currency with symbol " + currency.getSymbol() + " already exists.");
+        }
         currencyRepo.save(CurrencyMapper.mapToCurrency(currencyDTO));
         return currencyDTO;
     }
+
 
     public List<CurrencyDTO> getAllCurrencies() {
         List<Currency> listCurrency = currencyRepo.findAll();
@@ -78,8 +53,8 @@ public class CurrencyService {
         currencyRepo.deleteById(idCurrency);
     }
 
-    public void save(Currency currency) {
-        currencyRepo.save(currency);
+    public Currency save(Currency currency) {
+        return currencyRepo.save(currency);
     }
 
 }

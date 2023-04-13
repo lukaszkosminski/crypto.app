@@ -1,18 +1,16 @@
 package com.cryptoapp.model;
 
-
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
 @Getter
 @Setter
 @Entity
-public class CryptoCurrencyRate {
+public class CurrencyRate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,9 +20,10 @@ public class CryptoCurrencyRate {
     private Timestamp createdTime;
 
     @ManyToOne
-    @JoinColumn(name = "cryptocurrency_id")
-    private CryptoCurrency cryptoCurrency;
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
 
     private BigDecimal price;
 
+    private String symbolSell;
 }

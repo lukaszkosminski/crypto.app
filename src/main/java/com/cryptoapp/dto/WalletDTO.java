@@ -5,8 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
 public class WalletDTO {
 
     private String name;
+
+
 
 }

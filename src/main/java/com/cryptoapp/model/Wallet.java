@@ -1,15 +1,15 @@
 package com.cryptoapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
+
 public class Wallet {
 
     @Id
@@ -18,11 +18,13 @@ public class Wallet {
 
     private String name;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "wallet")
-    private List<Currency> currency;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @OneToMany(mappedBy = "wallet")
+    private List<Value> valueList;
+
+//    @OneToMany(mappedBy = "wallet")
+//    private List<Transaction> transactionList;
 
 }

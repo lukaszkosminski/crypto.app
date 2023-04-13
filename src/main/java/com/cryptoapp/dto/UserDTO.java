@@ -13,4 +13,9 @@ public class UserDTO {
 
     private String password;
 
+    private String preferredCurrency;
+
+    private String role;
+
+
 }

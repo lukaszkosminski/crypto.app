@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wykres liniowy</title>
+    <!-- Dodajemy styl Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Wykres liniowy</h1>
+    <canvas id="myChart"></canvas>
+</div>
+
+<!-- Dodajemy skrypty Chart.js oraz jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi94QsN"
+        crossorigin="anonymous"></script>
+
+<!-- Dodajemy skrypt, który wygeneruje wykres liniowy -->
+<script th:inline="javascript">
+  // Definiujemy dane do wykresu
+  var data = {
+    labels: /*[[${labels}]]*/,
+    datasets: [{
+      label: 'Przykładowe dane',
+      data: /*[[${data}]]*/,
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  };
+
+  // Tworzymy wykres
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Wykres liniowy'
+        },
+        legend: {
+          display: true,
+          position: 'bottom'
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

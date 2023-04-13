@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 100 Cryptocurrencies</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+<div class="container">
+    <h1 class="text-center mb-4">Top 20 Cryptocurrencies</h1>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Symbol</th>
+            <th scope="col">Price (USD)</th>
+            <th scope="col">Market Cap (USD)</th>
+            <th scope="col">24h Change</th>
+        </tr>
+        </thead>
+        <tbody id="coinTable">
+        </tbody>
+    </table>
+</div>
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+      $.ajax({
+        url: "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD",
+        success: function(data) {
+          var coinData = data["Data"];
+          for (var i = 0; i < coinData.length; i++) {
+            var coin = coinData[i]["CoinInfo"];
+            var coinPrice = coinData[i]["RAW"]["USD"]["PRICE"];
+            var coinChange = coinData[i]["RAW"]["USD"]["CHANGEPCT24HOUR"];
+            var coinMarketCap = coinData[i]["RAW"]["USD"]["MKTCAP"];
+            var coinRow = $("<tr>").append(
+              $("<td>").text(i + 1),
+              $("<td>").text(coin["FullName"]),
+              $("<td>").text(coin["Name"]),
+              $("<td>").text(coinPrice.toFixed(2)),
+              $("<td>").text(coinMarketCap.toFixed(2)),
+              $("<td>").text(coinChange.toFixed(2) + "%")
+            );
+            $("#coinTable").append(coinRow);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+    });
+  </script>
+<div th:insert="~{fragments/footer :: footer}"></div>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

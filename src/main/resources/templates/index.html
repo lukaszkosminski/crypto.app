@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Currency Portfolio</title>
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<!-- Main content -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Welcome to Crypto Currency Portfolio</h1>
+            <p class="lead">Track your cryptocurrency investments and stay up-to-date with market trends.</p>
+            <a th:href="@{/api/public/register}" class="btn btn-primary">Create a Free Account</a>
+        </div>
+        <div class="col-md-6">
+            <img src="/img/pexels-ivan-babydov-7788006.jpg" alt="Placeholder Image" class="img-fluid rounded">
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:insert="~{fragments/footer :: footer}"></div>
+<!-- Bootstrap 5 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

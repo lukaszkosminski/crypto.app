@@ -2,9 +2,12 @@ package com.cryptoapp.controller;
 
 import com.cryptoapp.dto.UserDTO;
 import com.cryptoapp.dto.WalletDTO;
+import com.cryptoapp.dto.mapper.UserMapper;
+import com.cryptoapp.model.User;
 import com.cryptoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,45 +22,48 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("users/create")
-    public UserDTO create(@RequestBody UserDTO userDTO) {
-        return userService.save(userDTO);
+
+    @PutMapping("api/user/change-email")
+    public UserDTO changeEmail(@AuthenticationPrincipal User user, @RequestBody UserDTO userDTO) {
+        return userService.changeEmail(userDTO,user);
     }
 
-    @PutMapping("user/{idUser}/change-email")
-    public UserDTO changeEmail(@PathVariable Long idUser, @RequestBody UserDTO userDTO) {
-        return userService.changeEmail(idUser, userDTO);
+    @PutMapping("api/user/change-password")
+    public UserDTO changePassword(@AuthenticationPrincipal User user, @RequestBody UserDTO userDTO) {
+        return userService.changePassword(user, userDTO);
     }
 
-    @PutMapping("user/{idUser}/change-password")
-    public UserDTO changePassword(@PathVariable Long idUser, @RequestBody UserDTO userDTO) {
-        return userService.changePassword(idUser, userDTO);
-    }
-
-    @DeleteMapping("user/{idUser}")
+    @DeleteMapping("api/admin/user/{idUser}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long idUser) {
         userService.deleteUser(idUser);
     }
 
-    @PutMapping("user/{idUser}/wallet")
-    public WalletDTO addWalletToUser(@PathVariable Long idUser, @RequestBody WalletDTO walletDTO) {
-        return userService.addWalletToUser(idUser, walletDTO);
+    @PutMapping("api/user/wallet")
+    public WalletDTO addWalletToUser(@AuthenticationPrincipal User user, @RequestBody WalletDTO walletDTO) {
+        return userService.addWalletToUser(user, walletDTO);
     }
 
-    @GetMapping("user")
+    @GetMapping("api/admin/users")
     public List<UserDTO> getAllUser() {
         return userService.getUserList();
     }
 
-    @GetMapping("user/{idUser}")
+    @GetMapping("api/admin/user/{idUser}")
     public UserDTO getUser(@PathVariable Long idUser) {
-        return userService.getUser(idUser);
+        return UserMapper.mapToDTO(userService.getUser(idUser));
     }
 
-    @GetMapping("user/{idUser}/wallets")
-    public List<WalletDTO> getWalletsByUser(@PathVariable Long idUser) {
-        return userService.getWalletsByUser(idUser);
+    @GetMapping("api/user/wallets")
+    public List<WalletDTO> getWalletsByUser(@AuthenticationPrincipal User user) {
+        return userService.getWalletsByUser(user);
+    }
+
+
+    @PostMapping("api/public/create-default-wallet")
+    public UserDTO createUserWithPreferredCurrencyWallet(@RequestBody UserDTO userDTO) throws Exception {
+        return userService.createUserWithPreferredCurrency(userDTO);
+
     }
 
 }
