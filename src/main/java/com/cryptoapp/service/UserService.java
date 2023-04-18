@@ -60,8 +60,12 @@ public class UserService {
     }
 
     public UserDTO changePassword(User userAuth, UserDTO userDTO) {
+        if (userDTO.getPassword() == null) {
+            throw new IllegalArgumentException("Password cannot be null");
+        }
         User user = userRepo.findByLogin(userAuth.getLogin());
         user.setPassword(userDTO.getPassword());
+        user.hashPassword(user.getPassword());
         userRepo.save(user);
         return UserMapper.mapToDTO(user);
     }
@@ -128,12 +132,17 @@ public List<WalletDTO> getWalletsByUser(User userAuth) {
 
 
         User user = userRepo.save(UserMapper.mapToUser(userDTO));
+        if (user == null) {
+            throw new Exception("Unable to create user");
+        }
+        Wallet walletDefalut = new Wallet();
+        walletDefalut.setName("default");
 
-        WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setName("default");
 
-
-        Wallet wallet  =walletService.save(WalletMapper.mapToWallet(walletDTO));
+        Wallet wallet  =walletService.save(walletDefalut);
+        if (wallet == null) {
+            throw new Exception("Unable to create wallet for user");
+        }
         wallet.setUser(user);
         walletService.save(wallet);
         ArrayList<Wallet> walletArrayList = new ArrayList<>();
@@ -153,5 +162,7 @@ public List<WalletDTO> getWalletsByUser(User userAuth) {
 
         return UserMapper.mapToDTO(user);
     }
+
+
 
 }

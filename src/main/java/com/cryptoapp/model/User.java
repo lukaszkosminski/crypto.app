@@ -69,8 +69,12 @@ public class User  implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password ="{bcrypt}"+passwordEncoder.encode(password);
-    }
+//    public void setPassword(String password) {
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        this.password ="{bcrypt}"+passwordEncoder.encode(password);
+//    }
+public void hashPassword(String password) {
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    this.password =passwordEncoder.encode(password);
+}
 }
